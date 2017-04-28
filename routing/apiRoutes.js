@@ -6,6 +6,7 @@
 
 var friendsData = require("../app/data/friends.js");
 
+
 module.exports = function(app) {
     app.get("/api/friends", function(req, res) {
 
@@ -25,22 +26,23 @@ module.exports = function(app) {
         var totalDifference = 0;
 
         for (var i = 0; i < friendsData.length; i++) {
-            //console.log(friendsData[i].name);
-            totalDifference = 0;
+            // console.log(friendsData[i].name);
 
-            for (var j = 0; j < friendsData[i].scores[j]; j++) {
+            for (var j = 0; j < friendsData[i].scores.length; j++) {
 
-                totalDifference += Math.abs(userScores[j] -friendsData[i].scores[j]);
-
-                if (totalDifference <= bestMatch.friendsDifference) {
-                    bestMatch.name = friendsData[i].name;
-                    bestMatch.pictures = friendsData[i].picture;
-                    bestMatch.friendDifference = totalDifference;
-                //console.log(totalDifference);
-                    console.log(bestMatch);
-
-                }
+                totalDifference += Math.abs(userScores[j] - friendsData[i].scores[j]);
             }
+            if (totalDifference <= bestMatch.friendDifference) {
+                bestMatch.name = friendsData[i].name;
+                bestMatch.picture = friendsData[i].picture;
+                bestMatch.friendDifference = totalDifference;
+                console.log(totalDifference);
+                console.log(bestMatch);
+                console.log("Your closet match is:" + bestMatch.name + bestMatch.picture);
+            }
+
+
+
         }
         friendsData.push(userData);
         res.json(bestMatch);
