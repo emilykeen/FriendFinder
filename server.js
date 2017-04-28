@@ -18,36 +18,8 @@ app.use(bodyParser.json({
     type: "application/vnd.api+json"
 }));
 
-var friends = [];
-
-
-app.get("/", function(req, res) {
-
-    res.sendFile(path.join(__dirname, "public/home.html"));
-});
-
-//survey
-app.get("/survey", function(req, res) {
-
-    res.sendFile(path.join(__dirname, "public/survey.html"));
-});
-
-app.get("/api/friends", function(req, res) {
-
-    return res.json(friends);
-});
-
-
-app.post("/api/friends", function(req, res) {
-
-    var newfriend = req.body;
-
-    console.log(newfriend);
-
-    friends.push(newfriend);
-
-    res.json(newfriend);
-})
+require("./routing/apiRoutes.js")(app);
+require("./routing/htmlRoutes.js")(app);
 
 
 app.listen(PORT, function() {

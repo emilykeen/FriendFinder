@@ -4,21 +4,46 @@
 // A POST routes /api/friends. This will be used to handle incoming survey results. 
 //		This route will also be used to handle the compatibility logic.
 
-app.get("/api/friends", function(req, res) {
+var friendsData = require("../app/data/friends.js");
 
-    return res.json(friends);
-});
+module.exports = function(app) {
+    app.get("/api/friends", function(req, res) {
 
+        return res.json(friendsData);
+    });
+    app.post("/api/friends", function(req, res) {
 
-app.post("/api/friends", function(req, res) {
+        var bestMatch = {
+            name: "",
+            picture: "",
+            friendDifference: 100
+        };
+        var userData = req.body;
+        var userName = userData.name;
+        var userPicture = userData.picture;
+        var userScores = userData.scores;
+        var totalDifference = 0;
 
-    var newfriend = req.body;
+        for (var i = 0; i < friendsData.length; i++) {
+            //console.log(friendsData[i].name);
+            totalDifference = 0;
 
-    console.log(newfriend);
+            for (var j = 0; j < friendsData[i].scores[j]; j++) {
 
-    friends.push(newfriend);
+                totalDifference += Math.abs(userScores[j] -friendsData[i].scores[j]);
 
-    res.json(newfriend);
-})
+                if (totalDifference <= bestMatch.friendsDifference) {
+                    bestMatch.name = friendsData[i].name;
+                    bestMatch.pictures = friendsData[i].picture;
+                    bestMatch.friendDifference = totalDifference;
+                //console.log(totalDifference);
+                    console.log(bestMatch);
 
+                }
+            }
+        }
+        friendsData.push(userData);
+        res.json(bestMatch);
+
+    });
 }
