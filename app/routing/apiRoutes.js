@@ -47,8 +47,10 @@ module.exports = function(app) {
 
         }
         friendsData.push(userData);
-        res.json(bestMatch);
-        module.exports= bestMatch;
+        res.json(bestMatch)
 
     });
+}
+function bestMatch(){
+    
 }
