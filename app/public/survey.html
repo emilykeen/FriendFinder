@@ -7,6 +7,8 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app/routing/apiRoutes.js"></script> 
+
 </head>
 
 <body>
@@ -147,7 +149,7 @@
     <script type="text/javascript">
     $(".submit").on("click", function(event) {
         event.preventDefault();
-        // Here we grab the form elements
+
         var newFriend = {
             name: $("#name").val().trim(),
             picture: $("#pic").val().trim(),
